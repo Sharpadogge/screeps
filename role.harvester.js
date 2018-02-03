@@ -3,8 +3,8 @@ const C = require('constants');
 var HarvesterService = {
     create: function (max) {
         if (typeof max !== "number") max = 10;
-        if(harvesters.length < max) {
-            Game.rooms['Main'].createCreep([WORK, CARRY, WALK], "Harvester-"+(new Date().getTime()), {
+        if(_.filter(Game.creeps, (creep) => creep.memory.role == C.ROLE_HARVESTER).length < max) {
+            Game.spawns['Main'].createCreep([WORK, CARRY, MOVE], "Harvester-"+(new Date().getTime()), {
                 role: C.ROLE_HARVESTER
             });
         }
@@ -13,9 +13,10 @@ var HarvesterService = {
         return _.filter(Game.creeps, (creep) => creep.memory.role == C.ROLE_HARVESTER);
     },
     runAll: function () {
-        for (var name in _.filter(Game.creeps, (creep) => creep.memory.role == C.ROLE_HARVESTER)) {
+        for (var name in Game.creeps) {
             var creep = Game.creeps[name];
-            job.run(creep);
+            if (creep.memory.role === C.ROLE_HARVESTER)
+                job.run(creep);
         }
     }
 }
