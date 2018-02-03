@@ -1,4 +1,4 @@
-const C = require('contants');
+const C = require('constants');
 
 var HarvesterService = {
     create: function (max) {
