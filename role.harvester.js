@@ -48,4 +48,4 @@ var job = {
 	}
 };
 
-module.exports = roleHarvester;
+module.exports = HarvesterService;
